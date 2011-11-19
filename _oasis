@@ -1,0 +1,21 @@
+OASISFormat:  0.2
+OCamlVersion: >= 3.12
+Name:         barbra
+Version:      0.1
+Synopsis:     OCaml installer tool
+Authors:      Kakadu
+Copyrights:   (C) 2008-2010 Jane Street Capital LLC
+License:      LGPL-2.1 with OCaml linking exception
+BuildTools:   ocamlbuild
+Description:  desc
+FindlibVersion: >= 1.2.7
+
+
+
+Executable barbra
+  Path:               src
+  MainIs:             main.ml
+  Install:            true
+#  Modules:	      Main
+  BuildDepends:       core,threads,oasis.base,findlib
+

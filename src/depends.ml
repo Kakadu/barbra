@@ -2,7 +2,7 @@ open StdLabels
 open OASISTypes
 open OASISVersion
 
-let get =
+let get : OASISTypes.section list -> (string * string option) list =
     let rec inner acc = function
       | [] -> acc
       | Library (_, { bs_build_depends; _ }, _) :: sections
@@ -20,9 +20,17 @@ let get =
 
   let is_installed pack_name = 
     try
-      Fl_package_base.query pack_name;
+      let (_ : Fl_package_base.package) = Fl_package_base.query pack_name in
       true
     with
 	Fl_package_base.No_such_package (a,b) -> false
 
-  let filter_uninstalled = List.filter ~f:(fun x -> not (is_installed x))
+  let filter_uninstalled lst : (string*string option) list = 
+    List.filter ~f:(fun (x,_) -> not (is_installed x)) lst
+
+  let of_oasis_file name : (string * string option) list = 
+    let { OASISTypes.sections; _ } = OASISParse.from_file
+      ~ctxt:{!BaseContext.default with OASISContext.ignore_plugins = true}
+      name
+    in
+    get sections

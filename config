@@ -1,0 +1,4 @@
+gorgona Git git://github.com/ermine/gorgona.git
+core Url http://www.janestreet.com/ocaml/core-107.01.tar.gz
+erm_xmpp Git git://github.com/ermine/xmpp.git
+erm_xml Git git://github.com/ermine/xml.git

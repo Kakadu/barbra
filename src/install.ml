@@ -5,18 +5,6 @@ let cwd = Unix.getcwd ()
 let workdir = cwd ^ "/work/"
 let (|>) x f = f x
 
-let endswith ~postfix s = 
-  let plen =  String.length postfix in
-  if plen > (String.length s) then false
-  else begin    
-    let delta = String.length s - plen in
-    let rec inner i =
-      if plen<= i then true 
-      else if postfix.[i] = s.[delta+i] then inner (i+1)
-      else false
-    in
-    inner 0
-  end
 (*
 exception Bad_library_directory of string
 let lib_dirname url = 

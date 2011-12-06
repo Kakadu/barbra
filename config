@@ -3,3 +3,6 @@ core Url http://www.janestreet.com/ocaml/core-107.01.tar.gz
 erm_xmpp Git git://github.com/ermine/xmpp.git
 erm_xml Git git://github.com/ermine/xml.git
 erm_tls Git https://github.com/ermine/mltls.git
+erm_treap Git git://github.com/ermine/treap.git
+cryptokit Url http://forge.ocamlcore.org/frs/download.php/639/cryptokit-1.5.tar.gz
+text Url http://forge.ocamlcore.org/frs/download.php/641/ocaml-text-0.5.tar.gz

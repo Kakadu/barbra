@@ -2,7 +2,7 @@ open StdLabels
 open Printf
 
 let cwd = Unix.getcwd ()
-let work_dir = cwd ^ "/work/"
+let workdir = cwd ^ "/work/"
 let (|>) x f = f x
 
 let endswith ~postfix s = 
@@ -17,7 +17,7 @@ let endswith ~postfix s =
     in
     inner 0
   end
-
+(*
 exception Bad_library_directory of string
 let lib_dirname url = 
   let r = String.rindex url '/' in
@@ -82,3 +82,4 @@ let rec install dir oasis_file =
   );
   Unix.chdir cwd;
   Printf.printf "Finishing installing %s\n" dir
+  *)

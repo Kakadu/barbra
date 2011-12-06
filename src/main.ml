@@ -1,4 +1,5 @@
 open StdLabels
+open Printf
 
 let () = 
   Findlib.init ();
@@ -7,8 +8,8 @@ let () =
 let () = Download.parse_database_file "config"
 
 let () = 
-  if not(Sys.file_exists Install.work_dir)
-  then Unix.mkdir Install.work_dir 0o755
+  if not(Sys.file_exists Install.workdir)
+  then Unix.mkdir Install.workdir 0o755
 
 open Depends
 
@@ -40,13 +41,22 @@ let _ =
   *)
 
 let install s = 
-  let oasis = s ^ "/_oasis" in
-  if Sys.file_exists oasis then 
-    Install.install s oasis
-  else
-    failwith (Printf.sprintf "Oasis file not found in %s" oasis)
+  Engine.engine [Engine.Download s]
+   
+let remove s = 
+  let lst = Str.split (Str.regexp ",") s in 
+  let cmd s = sprintf "sudo ocamlfind remove %s" s in
+  List.iter lst ~f:(fun name ->
+    let cmd = cmd name in
+    printf "executing `%s`\n" cmd; flush stdout;
+    let _ = Sys.command cmd in
+    ()
+  )
 
 open Arg
 let () = Arg.parse
-  ["-i", String install, "install source from directory"]
+  [("-i", String install, "install source from directory");
+   ("-rm",String remove,  "remove packages via ocamfind")
+
+  ]
   (fun s -> Printf.printf "anon: %s\n" s) "usage_str"

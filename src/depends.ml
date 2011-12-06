@@ -34,3 +34,10 @@ let get : OASISTypes.section list -> (string * string option) list =
       name
     in
     get sections
+
+  let split_depends lst = List.fold_left ~f:(fun (bad,db,system) ((name,_) as x) ->
+    if is_installed name then (bad,db,x::system) 
+    else match Download.getlib name with
+      | Some _ -> (bad,x::db,system)
+      | None -> (x::bad,db,system))
+    ~init:([],[],[]) lst

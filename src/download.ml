@@ -1,11 +1,13 @@
 open Printf
 type src_loc = 
-    Git of string
+  | Git of string
   | Url of string
 
 let database = ref []
 
-let getlib name = List.assoc name !database
+let getlib name = try
+    Some (List.assoc name !database)
+  with Not_found -> None
 
 let parse_database_file name = 
   let h = open_in name in
@@ -14,7 +16,7 @@ let parse_database_file name =
       let item = Scanf.fscanf h "%s %s %s\n" (fun name typ text -> 
 	match typ with
 	  | "Git" -> (name, Git text)
-	  | "Url" -> (name, Url text)
+	  | "Url" -> (name, Url text) 
 	  | _ -> failwith "bad database"
       ) in
       helper (item::acc)

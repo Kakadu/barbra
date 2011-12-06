@@ -17,5 +17,5 @@ Executable barbra
   MainIs:             main.ml
   Install:            true
 #  Modules:	      Main
-  BuildDepends:       core,threads,oasis.base,findlib
+  BuildDepends:       core,threads,oasis.base,findlib,str
 
